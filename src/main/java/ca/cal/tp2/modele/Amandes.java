@@ -1,9 +1,6 @@
 package ca.cal.tp2.modele;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
@@ -16,6 +13,7 @@ public class Amandes {
     private int id;
     private double montant;
     private LocalDate dateCreation;
+    @ManyToOne
     private Emprunteur emprunteur;
 
     public double calculMontant() {

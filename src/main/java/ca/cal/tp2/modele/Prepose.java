@@ -3,20 +3,16 @@ package ca.cal.tp2.modele;
 
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.SuperBuilder;
-
-import java.sql.Date;
+import lombok.Getter;
+import lombok.ToString;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Entity
 @DiscriminatorColumn(name = "PEPOSE")
+@ToString
+@Getter
 public class Prepose extends Utilisateur {
-
     private String poste;
     private LocalDate dateInscription;
     public void entreNouveauDocument(Document doc) {}

@@ -1,14 +1,36 @@
 package ca.cal.tp2.modele;
-import lombok.Data;
+
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.Date;
 
-@Data
+
+@Entity
+@NoArgsConstructor
+@Getter
+@Setter
 public class EmpruntDetail {
-    private final int id;
-    private final Date dateRetourPrevue;
-    private final Date dateRetourActuelle;
-    private final String status;
+
+    @EmbeddedId
+    private EmpruntDetailId id;
+    private Date dateRetourPrevue;
+    private Date dateRetourActuelle;
+    private String status;
+
+
+    @ManyToOne
+    @MapsId("documentId")
     private Document document;
+
+    @ManyToOne
+    @MapsId("empruntId")
+    private Emprunt emprunt;
 
     public boolean isEnRetard() {
         if (dateRetourActuelle != null && dateRetourPrevue != null) {

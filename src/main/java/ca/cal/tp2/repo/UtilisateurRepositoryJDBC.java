@@ -21,8 +21,6 @@ public class UtilisateurRepositoryJDBC extends RepoParentJDBC implements Utilisa
         pStatment.setDate(7, emprunteur.getDateInscription());
         pStatment.setInt(8, emprunteur.getDureeInscription());
 
-
-
     }
 
     @Override
@@ -32,7 +30,7 @@ public class UtilisateurRepositoryJDBC extends RepoParentJDBC implements Utilisa
 
     @Override
     protected Emprunteur resultSetGetObject(ResultSet resultSet) throws SQLException {
-        return  Emprunteur.builder()
+        return  Emprunteur. builder()
                 .id(resultSet.getLong("id"))
                 .nom(resultSet.getString("nom"))
                 .email(resultSet.getString("email"))
