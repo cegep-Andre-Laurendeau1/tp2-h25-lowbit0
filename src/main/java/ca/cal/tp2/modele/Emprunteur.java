@@ -3,10 +3,9 @@ package ca.cal.tp2.modele;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +14,7 @@ import java.util.List;
 @DiscriminatorColumn(name = "Emprunteur")
 @ToString
 @NoArgsConstructor
+@SuperBuilder
 @Getter
 @Setter
 public class Emprunteur extends Utilisateur {
@@ -25,8 +25,5 @@ public class Emprunteur extends Utilisateur {
     private List<Emprunt> emprunts = new ArrayList<>();
 
     @OneToMany(mappedBy = "emprunteur")
-    private List<Amandes> amendes = new ArrayList<>();
-
-
-
+    private List<Amande> amendes = new ArrayList<>();
 }

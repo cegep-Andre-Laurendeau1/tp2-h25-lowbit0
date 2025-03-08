@@ -1,14 +1,13 @@
 package ca.cal.tp2.service;
 
-import ca.cal.tp2.repo.DocumentRepository;
 import ca.cal.tp2.repo.UtilisateurRepository;
 
 public class PreposeService {
-    private final DocumentRepository documentRepository;
+
     private final UtilisateurRepository utilisateurRepository;
 
-    public PreposeService(DocumentRepository documentRepository, UtilisateurRepository utilisateurRepository) {
-        this.documentRepository = documentRepository;
+    public PreposeService( UtilisateurRepository utilisateurRepository) {
+
         this.utilisateurRepository = utilisateurRepository;
     }
 

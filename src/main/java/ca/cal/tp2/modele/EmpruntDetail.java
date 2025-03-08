@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 
 @Entity
@@ -19,8 +19,8 @@ public class EmpruntDetail {
 
     @EmbeddedId
     private EmpruntDetailId id;
-    private Date dateRetourPrevue;
-    private Date dateRetourActuelle;
+    private LocalDate dateRetourPrevue;
+    private LocalDate dateRetourActuelle;
     private String status;
 
 
@@ -34,7 +34,7 @@ public class EmpruntDetail {
 
     public boolean isEnRetard() {
         if (dateRetourActuelle != null && dateRetourPrevue != null) {
-            return dateRetourActuelle.after(dateRetourPrevue);
+            return dateRetourActuelle.isAfter(dateRetourPrevue);
         }
         return false;
     }

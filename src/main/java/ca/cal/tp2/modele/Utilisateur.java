@@ -2,7 +2,9 @@ package ca.cal.tp2.modele;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 
 @Entity
@@ -10,6 +12,8 @@ import lombok.Setter;
 @DiscriminatorColumn(name = "TYPE_UTILISATEUR", discriminatorType = DiscriminatorType.STRING)
 @Getter
 @Setter
+@NoArgsConstructor
+@SuperBuilder
 public abstract class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,6 +27,5 @@ public abstract class Utilisateur {
     private String password;
 
     public void login(){}
-
 
 }

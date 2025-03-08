@@ -1,13 +1,17 @@
 package ca.cal.tp2.modele;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
-public class Amandes {
+@Setter
+@Getter
+public class Amande {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
