@@ -13,11 +13,11 @@ import java.util.List;
 
 @Entity
 @DiscriminatorValue("Emprunteur")
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
-@SuperBuilder
 @Getter
 @Setter
+@SuperBuilder
 public class Emprunteur extends Utilisateur {
     private LocalDate dateInscription;
     private int DureeInscription;

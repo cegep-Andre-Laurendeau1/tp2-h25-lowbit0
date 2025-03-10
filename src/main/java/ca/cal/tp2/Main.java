@@ -19,7 +19,6 @@ public class Main {
         Adresse adresse = new Adresse("La pierre, 1111, H8N 2J4, Lachine , Qc, Ca");
 
         Emprunteur emprunteur = Emprunteur.builder()
-                .id(1)
                 .nom("John Doe")
                 .email("john.doe@example.com")
                 .phoneNumber("123-456-7890")
