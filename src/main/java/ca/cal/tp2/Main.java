@@ -14,8 +14,8 @@ public class Main {
     public static void main(String[] args) throws SQLException, InterruptedException {
         TcpServer.startTcpServer();
 
-        EmprunteurService emprunteurService = new EmprunteurService(new UtilisateurRepositoryJDBC());
-        EmprunteurService emprunteurService2 = new EmprunteurService(new UtilisateurRepositoryJPA());
+        //EmprunteurService emprunteurService = new EmprunteurService(new UtilisateurRepositoryJDBC());
+      EmprunteurService emprunteurService = new EmprunteurService(new UtilisateurRepositoryJPA());
         Adresse adresse = new Adresse("La pierre, 1111, H8N 2J4, Lachine , Qc, Ca");
 
         Emprunteur emprunteur = Emprunteur.builder()

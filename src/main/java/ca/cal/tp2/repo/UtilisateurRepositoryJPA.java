@@ -6,7 +6,8 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 public class UtilisateurRepositoryJPA implements UtilisateurRepository {
-    private final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory();
+    private final EntityManagerFactory entityManagerFactory =
+            Persistence.createEntityManagerFactory("tp2-pu");
 
     @Override
     public void save(Utilisateur utilisateur) {
@@ -21,6 +22,12 @@ public class UtilisateurRepositoryJPA implements UtilisateurRepository {
 
     @Override
     public Utilisateur getUtilisateurById(int id) {
-        return null;
+        try( EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            return entityManager.find(Utilisateur.class, id);
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
