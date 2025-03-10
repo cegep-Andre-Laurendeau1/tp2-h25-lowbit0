@@ -17,8 +17,15 @@ public class Amande {
     private int id;
     private double montant;
     private LocalDate dateCreation;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Emprunteur emprunteur;
+
+
+    public Amande(double montant, LocalDate dateCreation, Emprunteur emprunteur) {
+        this.montant = montant;
+        this.dateCreation = dateCreation;
+        this.emprunteur = emprunteur;
+    }
 
     public double calculMontant() {
        return 0;
