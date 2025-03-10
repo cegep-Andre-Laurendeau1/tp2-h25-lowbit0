@@ -25,10 +25,10 @@
         <!-- Database connection properties -->
         <properties>
             <!-- H2 TCP connection configuration -->
-            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost:9093/mem:tp2luiscqv" />
-            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-            <property name="javax.persistence.jdbc.user" value="admin" />
-            <property name="javax.persistence.jdbc.password" value="" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:tp2luiscqv;DB_CLOSE_DELAY=-1" />
+            <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver" />
+            <property name="jakarta.persistence.jdbc.user" value="admin" />
+            <property name="jakarta.persistence.jdbc.password" value="" />
 
             <!-- Hibernate properties -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
