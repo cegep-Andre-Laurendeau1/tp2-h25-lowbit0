@@ -14,6 +14,13 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @NoArgsConstructor
 @SuperBuilder
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        columnNames = {"nom", "email"}
+                )
+        }
+)
 public abstract class Utilisateur {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

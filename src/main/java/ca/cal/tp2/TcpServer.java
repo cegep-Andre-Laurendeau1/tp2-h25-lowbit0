@@ -10,7 +10,11 @@ public class TcpServer {
         System.out.println("Tcp server start: " + tcpServer.start());
         System.out.println(tcpServer.getStatus() + " " +
                 tcpServer.getPort());
+<<<<<<< HEAD
         System.out.println("jdbc:h2:tcp://localhost:9093/mem:tp2");
+=======
+        System.out.println("jdbc:h2:tcp://localhost:9093/mem:tp2luiscqv");
+>>>>>>> 63eb811c50750b24c172cad98ceeb28075e728e7
     }
 
 }

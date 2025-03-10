@@ -20,12 +20,18 @@ public class Emprunt {
     private LocalDate dateEmprunt;
     private String status;
 
-    @OneToMany(mappedBy = "emprunt")
+    @OneToMany(mappedBy = "emprunt", cascade = CascadeType.PERSIST)
     private List<EmpruntDetail> empruntDetail;
 
     @ManyToOne
     private Emprunteur emprunteur;
 
+    public Emprunt(LocalDate dateEmprunt, String status, List<EmpruntDetail> empruntDetail, Emprunteur emprunteur) {
+        this.dateEmprunt = dateEmprunt;
+        this.status = status;
+        this.empruntDetail = empruntDetail;
+        this.emprunteur = emprunteur;
+    }
 
     public  Emprunt getEmprunt(){
         return null;

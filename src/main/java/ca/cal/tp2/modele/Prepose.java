@@ -2,6 +2,7 @@ package ca.cal.tp2.modele;
 
 
 import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 
 
 @Entity
-@DiscriminatorColumn(name = "PEPOSE")
+@DiscriminatorValue("PEPOSE")
 @ToString
 @Getter
 @Setter

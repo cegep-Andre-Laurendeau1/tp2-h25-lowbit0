@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+
+    <!-- Define a persistence unit -->
+    <persistence-unit name="tp2-pu" transaction-type="RESOURCE_LOCAL">
+        <!-- Specify the JPA provider (Hibernate) -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <!-- List your entity classes -->
+        <class>ca.cal.tp2.modele.Utilisateur</class>
+        <class>ca.cal.tp2.modele.Amande</class>
+        <class>ca.cal.tp2.modele.Emprunteur</class>
+        <class>ca.cal.tp2.modele.Emprunt</class>
+        <class>ca.cal.tp2.modele.Prepose</class>
+        <class>ca.cal.tp2.modele.EmpruntDetail</class>
+        <class>ca.cal.tp2.modele.Document</class>
+        <class>ca.cal.tp2.modele.Livre</class>
+        <class>ca.cal.tp2.modele.CD</class>
+        <class>ca.cal.tp2.modele.DVD</class>
+
+        <!-- Database connection properties -->
+        <properties>
+            <!-- H2 TCP connection configuration -->
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:mem:tp2luiscqv;DB_CLOSE_DELAY=-1" />
+            <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver" />
+            <property name="jakarta.persistence.jdbc.user" value="admin" />
+            <property name="jakarta.persistence.jdbc.password" value="" />
+
+            <!-- Hibernate properties -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+            <!-- Automatically create/update the database schema -->
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+            <!-- Show SQL queries in the console (optional) -->
+            <property name="hibernate.show_sql" value="true" />
+            <!-- Format SQL queries for better readability (optional) -->
+            <property name="hibernate.format_sql" value="true" />
+        </properties>
+    </persistence-unit>
+</persistence>
