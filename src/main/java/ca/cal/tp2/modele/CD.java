@@ -1,6 +1,5 @@
 package ca.cal.tp2.modele;
 
-import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -18,8 +17,14 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 public class CD extends Document {
-    private String artiste;
-    private int duree;
+    private final int dureEmprunt = 3;
+    private int dureeMinutes;
+    private int nbMusiques;
+
+    @Override
+    public int getDureeEmprunt() {
+        return dureEmprunt;
+    }
 
 
     @Override

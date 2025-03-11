@@ -1,6 +1,7 @@
 package ca.cal.tp2.repo;
 
 import ca.cal.tp2.exception.DataBaseException;
+import ca.cal.tp2.modele.Emprunt;
 import ca.cal.tp2.modele.Utilisateur;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -46,4 +47,6 @@ public class UtilisateurRepositoryJPA implements UtilisateurRepository {
         }
 
     }
+
+
 }

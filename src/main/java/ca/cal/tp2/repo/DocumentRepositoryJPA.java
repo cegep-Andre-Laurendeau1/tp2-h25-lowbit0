@@ -25,12 +25,12 @@ public class DocumentRepositoryJPA implements DocumentRepository {
     }
 
     @Override
-    public List<Document> getDocumentByTitle(String title) throws DataBaseException {
+    public List<Document> getDocumentByTitle(String titre) throws DataBaseException {
 
         try( EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             TypedQuery<Document> query = entityManager.createQuery(
-                    "SELECT d FROM Document d WHERE Lower(d.titre) LIKE :title", Document.class);
-            query.setParameter("title", "%" + title.toLowerCase() + "%");
+                    "SELECT d FROM Document d WHERE LOWER(d.titre) LIKE :titre", Document.class);
+            query.setParameter("titre", "%" + titre.toLowerCase() + "%");
             return query.getResultList();
         }
         catch (Exception e) {
@@ -39,9 +39,19 @@ public class DocumentRepositoryJPA implements DocumentRepository {
     }
 
     @Override
-    public List<Document> getDocumentByAuthor(String author) {
-        return null;
+    public List<Document> getDocumentByAuthor(String auteur) throws DataBaseException {
+        try( EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            TypedQuery<Document> query = entityManager.createQuery(
+                    "SELECT d FROM Document d WHERE Lower(d.auteur) LIKE :auteur", Document.class);
+            query.setParameter("auteur", "%" + auteur.toLowerCase() + "%");
+            return query.getResultList();
+        }
+        catch (Exception e) {
+            throw new DataBaseException(e);
+        }
     }
+
+
 
     @Override
     public List<Document> getDocumentByArtist(String artist) {

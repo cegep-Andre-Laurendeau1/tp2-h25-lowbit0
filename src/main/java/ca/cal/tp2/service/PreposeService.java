@@ -63,6 +63,10 @@ public class PreposeService {
 
 
 
-    public  List<Document> getDocumentByType(String type)throws DataBaseException  {
-        return repositoryDocument.getDocumentByType(type);}
+    public  List<DocumentDTO> getDocumentByAuteur(String auteur)throws DataBaseException  {
+        List<Document> documents = repositoryDocument.getDocumentByAuthor(auteur);
+        return documents.stream()
+                .map(DocumentDTO::toDTO)
+                .collect(Collectors.toList());
+    }
 }

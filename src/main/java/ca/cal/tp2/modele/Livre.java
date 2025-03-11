@@ -1,6 +1,5 @@
 package ca.cal.tp2.modele;
 
-import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Getter;
@@ -18,9 +17,14 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class Livre extends Document {
     private String ISBN;
-    private String auteur;
     private String editeur;
     private int nbPages;
+    private final int dureEmprunt = 4;
+
+    @Override
+    public int getDureeEmprunt() {
+        return dureEmprunt;
+    }
 
     @Override
     public void verifieDisponibilite() {

@@ -20,8 +20,10 @@ public abstract class Document {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String titre;
+    private String auteur;
     private String anneePublication;
     private String genre;
+    public abstract int getDureeEmprunt();
 
 
 

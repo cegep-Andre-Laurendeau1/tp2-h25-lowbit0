@@ -7,60 +7,63 @@ import ca.cal.tp2.modele.DVD;
 
 public record DocumentDTO(
             long id,
+            String typeDocument,
             String titre,
             String anneePublication,
             String genre,
-            String typeDocument,
             String auteur,
             String editeur,
             Integer nbPages,
-            String artiste,
-            Integer duree,
-            String director
+            Integer dureEmprunt,
+            Integer dureMinutes,
+            Integer nbMusique
     ) {
 
         public static DocumentDTO toDTO(Document document) {
             if (document instanceof Livre livre) {
                 return new DocumentDTO(
                         livre.getId(),
+                        "Livre",
                         livre.getTitre(),
                         livre.getAnneePublication(),
                         livre.getGenre(),
-                        "Livre",
                         livre.getAuteur(),
                         livre.getEditeur(),
                         livre.getNbPages(),
-                        null,
+                        livre.getDureEmprunt(),
                         null,
                         null
                 );
             } else if (document instanceof CD cd) {
                 return new DocumentDTO(
                         cd.getId(),
+                        "CD",
                         cd.getTitre(),
                         cd.getAnneePublication(),
+                        cd.getGenre(),
+                        cd.getAuteur(),
                         null,
-                        "CD",
                         null,
-                        null,
-                        null,
-                        cd.getArtiste(),
-                        cd.getDuree(),
-                        null
+                        cd.getDureEmprunt(),
+                        cd.getDureeMinutes(),
+                        cd.getNbMusiques()
                 );
+
             } else if (document instanceof DVD dvd) {
                 return new DocumentDTO(
                         dvd.getId(),
+                        "DVD",
                         dvd.getTitre(),
                         dvd.getAnneePublication(),
                         dvd.getGenre(),
-                        "DVD",
+                        dvd.getAuteur(),
                         null,
                         null,
-                        null,
-                        null,
-                        dvd.getDuree(),
-                        dvd.getDirector()
+                        dvd.getDureEmprunt(),
+                        dvd.getDureeMinutes(),
+                        null
+
+
                 );
             } else {
                 throw new IllegalArgumentException("Type de document non supporté : " + document.getClass().getSimpleName());

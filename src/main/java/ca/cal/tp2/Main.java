@@ -4,6 +4,8 @@ package ca.cal.tp2;
 import ca.cal.tp2.exception.DataBaseException;
 import ca.cal.tp2.modele.*;
 import ca.cal.tp2.repo.DocumentRepositoryJPA;
+import ca.cal.tp2.repo.EmpruntDetailRepositoryJPA;
+import ca.cal.tp2.repo.EmpruntRepositoryJPA;
 import ca.cal.tp2.repo.UtilisateurRepositoryJPA;
 import ca.cal.tp2.service.EmprunteurService;
 import ca.cal.tp2.service.PreposeService;
@@ -13,15 +15,20 @@ import ca.cal.tp2.service.dto.PreposeDTO;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws SQLException, InterruptedException, DataBaseException {
         TcpServer.startTcpServer();
 
+      //EmprunteurService emprunteurService = new EmprunteurService(new UtilisateurRepositoryJDBC());
+      EmprunteurService emprunteurService = new EmprunteurService(
+              new UtilisateurRepositoryJPA(),
+              new EmpruntRepositoryJPA(),
+              new EmpruntDetailRepositoryJPA());
+      PreposeService preposeService = new PreposeService(new UtilisateurRepositoryJPA(), new DocumentRepositoryJPA());
 
-        //EmprunteurService emprunteurService = new EmprunteurService(new UtilisateurRepositoryJDBC());
-      EmprunteurService emprunteurService = new EmprunteurService(new UtilisateurRepositoryJPA());
         Adresse adresse = new Adresse("La pierre, 1111, H8N 2J4, lassalle , Qc, Ca");
 
         Emprunteur emprunteur = Emprunteur.builder()
@@ -48,7 +55,7 @@ public class Main {
 
 
 
-        PreposeService preposeService = new PreposeService(new UtilisateurRepositoryJPA(), new DocumentRepositoryJPA());
+
         adresse = new Adresse("louis-parre, 2974, h8n 2J4, Lachine , Qc, Ca");
         Prepose prepose = Prepose.builder()
                 .nom("jean jaque")
@@ -80,11 +87,64 @@ public class Main {
                 .build();
 
         preposeService.createDocument(livre1);
-        System.out.println("Document created!!!!!!!!!!!!!!!!!!!!!!!!   le voici: ");
-        List<DocumentDTO> monLivre = preposeService.getDocumentsByTitle("Le seigneur");
+        System.out.println("Document created!!!!!!!!!!!!!!!!!!!!!!!!");
+        List<DocumentDTO> monLivre = preposeService.getDocumentsByTitle("Le seigneu");
+        System.out.println("Voici les livres avec un titre qui contient 'Le seigneu': ");
         for (DocumentDTO doc : monLivre) {
             System.out.println(doc.toString());
         }
+
+        CD cd1 = CD.builder()
+                .titre("Thriller")
+                .anneePublication("1982")
+                .genre("Pop")
+                .auteur("Michael Jackson")
+                .dureeMinutes(42)
+                .nbMusiques(12)
+                .build();
+
+        CD cd2 = CD.builder()
+                .titre("Thriller")
+                .anneePublication("1982")
+                .genre("Pop")
+                .auteur("Michael Jackson")
+                .dureeMinutes(42)
+                .nbMusiques(12)
+                .build();
+
+        CD cd3 = CD.builder()
+                .titre("A Night at the Opera")
+                .anneePublication("1975")
+                .genre("Rock")
+                .auteur("Queen")
+                .dureeMinutes(43)
+                .nbMusiques(12)
+                .build();
+
+        preposeService.createDocument(cd1);
+        preposeService.createDocument(cd2);
+        preposeService.createDocument(cd3);
+
+        System.out.println("Document created!!!!!!!!!!!!!!!!!!!!!!!!   le voici: ");
+
+        List<DocumentDTO> monCD = preposeService.getDocumentsByTitle("Thrill");
+        for (DocumentDTO doc : monCD) {
+            System.out.println(doc.toString());
+        }
+
+
+
+        List<DocumentDTO>monCD2 = preposeService.getDocumentByAuteur("Michael");
+        for (DocumentDTO doc : monCD2){
+            System.out.println(doc.toString());
+        }
+
+        List<Document> mesDocumentsaEmprunter = new ArrayList<>();
+        mesDocumentsaEmprunter.add(cd2);
+        mesDocumentsaEmprunter.add(livre1);
+
+        emprunteurService.createEmprunt(mesDocumentsaEmprunter,emprunteur);
+
         Thread.currentThread().join();
     }
 }

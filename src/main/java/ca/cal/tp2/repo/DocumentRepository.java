@@ -11,7 +11,7 @@ public interface DocumentRepository {
 
     public List<Document> getDocumentByTitle(String title) throws DataBaseException;
 
-    public List<Document> getDocumentByAuthor(String author);
+    public List<Document> getDocumentByAuthor(String author) throws DataBaseException;
 
     public List<Document> getDocumentByArtist(String artist);
 
