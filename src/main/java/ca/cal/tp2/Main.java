@@ -3,8 +3,10 @@ package ca.cal.tp2;
 
 import ca.cal.tp2.exception.DataBaseException;
 import ca.cal.tp2.modele.*;
+import ca.cal.tp2.repo.DocumentRepositoryJPA;
 import ca.cal.tp2.repo.UtilisateurRepositoryJPA;
 import ca.cal.tp2.service.EmprunteurService;
+import ca.cal.tp2.service.PreposeService;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -40,7 +42,7 @@ public class Main {
 
 
 
-        /*
+/*
         PreposeService preposeService = new PreposeService(new UtilisateurRepositoryJPA(), new DocumentRepositoryJPA());
         adresse = new Adresse("louis-parre, 2974, h8n 2J4, Lachine , Qc, Ca");
         Prepose prepose = Prepose.builder()
@@ -56,8 +58,8 @@ public class Main {
         Utilisateur monPreopose = preposeService.getPreposeById(2);
         System.out.println("Prepose created!!!!!!!!!!!!!!!!!!!!!!!!   le voici: ");
         System.out.println(monPreopose.toString());
-        */
 
+*/
 
 
         /*
