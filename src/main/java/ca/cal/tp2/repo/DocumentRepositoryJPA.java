@@ -1,9 +1,11 @@
 package ca.cal.tp2.repo;
 
+import ca.cal.tp2.exception.DataBaseException;
 import ca.cal.tp2.modele.Document;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
@@ -23,8 +25,17 @@ public class DocumentRepositoryJPA implements DocumentRepository {
     }
 
     @Override
-    public List<Document> getDocumentByTitle(String title) {
-        return null;
+    public List<Document> getDocumentByTitle(String title) throws DataBaseException {
+
+        try( EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            TypedQuery<Document> query = entityManager.createQuery(
+                    "SELECT d FROM Document d WHERE Lower(d.titre) LIKE :title", Document.class);
+            query.setParameter("title", "%" + title.toLowerCase() + "%");
+            return query.getResultList();
+        }
+        catch (Exception e) {
+            throw new DataBaseException(e);
+        }
     }
 
     @Override

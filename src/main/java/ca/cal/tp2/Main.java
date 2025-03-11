@@ -7,11 +7,13 @@ import ca.cal.tp2.repo.DocumentRepositoryJPA;
 import ca.cal.tp2.repo.UtilisateurRepositoryJPA;
 import ca.cal.tp2.service.EmprunteurService;
 import ca.cal.tp2.service.PreposeService;
+import ca.cal.tp2.service.dto.DocumentDTO;
 import ca.cal.tp2.service.dto.EmprunteurDTO;
 import ca.cal.tp2.service.dto.PreposeDTO;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws SQLException, InterruptedException, DataBaseException {
@@ -56,31 +58,33 @@ public class Main {
                 .password("12345678")
                 .poste("bibliothequaire").dateEmbauche(LocalDate.now())
                 .build();
-        preposeService.createPrepose(prepose);
 
-        PreposeDTO monPreopose = preposeService.getPreposeById(2);
-        System.out.println("Prepose created!!!!!!!!!!!!!!!!!!!!!!!!   le voici: ");
-        System.out.println(monPreopose.toString());
+        try {
+            preposeService.createPrepose(prepose);
+            PreposeDTO monPreopose = preposeService.getPreposeById(2);
+            System.out.println("Prepose created!!!!!!!!!!!!!!!!!!!!!!!!   le voici: ");
+            System.out.println(monPreopose.toString());
+        } catch (DataBaseException e) {
+            System.out.println("Erreu bd: " + e.getMessage());
+        }
 
 
-
-
-        /*
         Livre livre1 = Livre.builder()
                 .titre("Le seigneur des anneaux")
                 .anneePublication("1954")
                 .auteur("J.R.R. Tolkien")
-                .categorie("Fantaisie")
+                .genre("Fantaisie")
                 .editeur("Houghton Mifflin")
                 .ISBN("978-2-226-10768-9")
-                .nombrePages(423)
+                .nbPages(423)
                 .build();
 
         preposeService.createDocument(livre1);
         System.out.println("Document created!!!!!!!!!!!!!!!!!!!!!!!!   le voici: ");
-        System.out.println(preposeService.getDocumentById(0).toString());
-        */
-
+        List<DocumentDTO> monLivre = preposeService.getDocumentsByTitle("Le seigneur");
+        for (DocumentDTO doc : monLivre) {
+            System.out.println(doc.toString());
+        }
         Thread.currentThread().join();
     }
 }

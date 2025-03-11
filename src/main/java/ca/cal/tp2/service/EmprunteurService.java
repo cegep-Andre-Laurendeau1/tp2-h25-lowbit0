@@ -11,9 +11,7 @@ public class EmprunteurService {
 
 
     public EmprunteurService(UtilisateurRepository repository) {
-
         this.repositoryUtilisateur = repository;
-
     }
 
     public void createEmprunteur(Utilisateur utilisateur) throws DataBaseException {

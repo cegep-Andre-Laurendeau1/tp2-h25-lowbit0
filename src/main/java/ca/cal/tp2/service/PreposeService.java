@@ -6,9 +6,12 @@ import ca.cal.tp2.modele.Prepose;
 import ca.cal.tp2.modele.Utilisateur;
 import ca.cal.tp2.repo.DocumentRepository;
 import ca.cal.tp2.repo.UtilisateurRepository;
+import ca.cal.tp2.service.dto.DocumentDTO;
 import ca.cal.tp2.service.dto.PreposeDTO;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PreposeService {
 
@@ -19,6 +22,10 @@ public class PreposeService {
     public PreposeService( UtilisateurRepository uRepository, DocumentRepository dRepository){
         this.repositoryUtilisateur = uRepository;
         this.repositoryDocument = dRepository;}
+
+
+    // ------------------------ section Utilisateur ----------------------
+
 
     public void createPrepose(Utilisateur perpo) throws DataBaseException {
         repositoryUtilisateur.save(perpo);
@@ -32,20 +39,29 @@ public class PreposeService {
 
         return null;
     }
+    public PreposeDTO getPreposeByMail(String email) throws DataBaseException {
+        Utilisateur utilisateur = repositoryUtilisateur.getUtilisateurByMail(email);
+        if (utilisateur instanceof Prepose) {
+            return PreposeDTO.toDTO(utilisateur);
+        }
+        return null;
+    }
 
+    // ------------------------ section Document ----------------------
 
     public void createDocument(Document doc) {
         repositoryDocument.save(doc);
     }
 
-    public Document getDocumentById(int id) {
-        return null;
+
+    public List<DocumentDTO> getDocumentsByTitle(String title) throws DataBaseException {
+        List<Document> documents = repositoryDocument.getDocumentByTitle(title);
+        return documents.stream()
+                .map(DocumentDTO::toDTO)
+                .collect(Collectors.toList());
     }
 
-    public Document getAllDocument()throws DataBaseException  {return null;}
 
-    public List<Document> getDocumentByTitle(String title)throws DataBaseException  {
-        return repositoryDocument.getDocumentByTitle(title);}
 
     public  List<Document> getDocumentByType(String type)throws DataBaseException  {
         return repositoryDocument.getDocumentByType(type);}
