@@ -21,6 +21,7 @@ public abstract class Document {
     private int id;
     private String titre;
     private String anneePublication;
+    private String genre;
 
 
 

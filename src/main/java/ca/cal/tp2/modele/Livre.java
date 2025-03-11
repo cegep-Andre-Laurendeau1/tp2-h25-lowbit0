@@ -20,8 +20,7 @@ public class Livre extends Document {
     private String ISBN;
     private String auteur;
     private String editeur;
-    private String categorie;
-    private int nombrePages;
+    private int nbPages;
 
     @Override
     public void verifieDisponibilite() {

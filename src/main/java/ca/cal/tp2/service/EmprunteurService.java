@@ -11,14 +11,16 @@ public class EmprunteurService {
 
 
     public EmprunteurService(UtilisateurRepository repository) {
+
         this.repositoryUtilisateur = repository;
+
     }
 
     public void createEmprunteur(Utilisateur utilisateur) throws DataBaseException {
         repositoryUtilisateur.save(utilisateur);
     }
 
-    public EmprunteurDTO getEmprunteur(int id) throws DataBaseException {
+    public EmprunteurDTO getEmprunteurById(int id) throws DataBaseException {
         Utilisateur utilisateur = repositoryUtilisateur.getUtilisateurById(id);
         if (utilisateur instanceof Emprunteur) {
             return EmprunteurDTO.toDTO(utilisateur);

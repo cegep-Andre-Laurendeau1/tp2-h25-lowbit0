@@ -6,6 +6,7 @@ import ca.cal.tp2.modele.Prepose;
 import ca.cal.tp2.modele.Utilisateur;
 import ca.cal.tp2.repo.DocumentRepository;
 import ca.cal.tp2.repo.UtilisateurRepository;
+import ca.cal.tp2.service.dto.PreposeDTO;
 
 import java.util.List;
 
@@ -23,10 +24,10 @@ public class PreposeService {
         repositoryUtilisateur.save(perpo);
     }
 
-    public Prepose getPreposeById(int id) throws DataBaseException {
+    public PreposeDTO getPreposeById(int id) throws DataBaseException {
         Utilisateur utilisateur = repositoryUtilisateur.getUtilisateurById(id);
         if (utilisateur instanceof Prepose) {
-            return (Prepose) utilisateur;
+            return PreposeDTO.toDTO(utilisateur);
         }
 
         return null;

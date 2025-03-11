@@ -2,6 +2,7 @@ package ca.cal.tp2.service.dto;
 
 import ca.cal.tp2.modele.Adresse;
 import ca.cal.tp2.modele.Prepose;
+import ca.cal.tp2.modele.Utilisateur;
 
 import java.time.LocalDate;
 
@@ -14,14 +15,15 @@ public record PreposeDTO(
         String poste,
         LocalDate dateEmbauche
 ) {
-    public static PreposeDTO toDTO(Prepose prepose) {
+    public static PreposeDTO toDTO(Utilisateur prepose) {
         return new PreposeDTO(
                 prepose.getId(),
                 prepose.getNom(),
                 prepose.getEmail(),
                 prepose.getPhoneNumber(),
                 prepose.getAdresse(),
-                prepose.getPoste(),
-                prepose.getDateEmbauche()
+                ((Prepose) prepose).getPoste(),
+                ((Prepose) prepose).getDateEmbauche()
+
         );}
 }

@@ -20,7 +20,7 @@ import lombok.experimental.SuperBuilder;
 public class CD extends Document {
     private String artiste;
     private int duree;
-    private String genre;
+
 
     @Override
     public void verifieDisponibilite() {

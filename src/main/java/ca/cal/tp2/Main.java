@@ -7,6 +7,8 @@ import ca.cal.tp2.repo.DocumentRepositoryJPA;
 import ca.cal.tp2.repo.UtilisateurRepositoryJPA;
 import ca.cal.tp2.service.EmprunteurService;
 import ca.cal.tp2.service.PreposeService;
+import ca.cal.tp2.service.dto.EmprunteurDTO;
+import ca.cal.tp2.service.dto.PreposeDTO;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -33,7 +35,8 @@ public class Main {
         try {
             emprunteurService.createEmprunteur(emprunteur);
             System.out.println("Emprunteur created");
-            System.out.println(emprunteurService.getEmprunteurByMail("john.doe@example.com"));
+            EmprunteurDTO emprunteurDTO = emprunteurService.getEmprunteurByMail("john.doe@example.com");
+            System.out.println(emprunteurDTO);
         } catch (DataBaseException e) {
           System.out.println("Erreu bd: " + e.getMessage());
         }
@@ -42,7 +45,7 @@ public class Main {
 
 
 
-/*
+
         PreposeService preposeService = new PreposeService(new UtilisateurRepositoryJPA(), new DocumentRepositoryJPA());
         adresse = new Adresse("louis-parre, 2974, h8n 2J4, Lachine , Qc, Ca");
         Prepose prepose = Prepose.builder()
@@ -55,11 +58,11 @@ public class Main {
                 .build();
         preposeService.createPrepose(prepose);
 
-        Utilisateur monPreopose = preposeService.getPreposeById(2);
+        PreposeDTO monPreopose = preposeService.getPreposeById(2);
         System.out.println("Prepose created!!!!!!!!!!!!!!!!!!!!!!!!   le voici: ");
         System.out.println(monPreopose.toString());
 
-*/
+
 
 
         /*
