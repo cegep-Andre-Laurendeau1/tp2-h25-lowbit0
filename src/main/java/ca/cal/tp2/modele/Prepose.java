@@ -14,15 +14,15 @@ import java.time.LocalDate;
 
 
 @Entity
-@DiscriminatorValue("PEPOSE")
-@ToString
+@DiscriminatorValue("PREPOSE")
+@ToString(callSuper = true)
 @Getter
 @Setter
 @SuperBuilder
 @NoArgsConstructor
 public class Prepose extends Utilisateur {
     private String poste;
-    private LocalDate dateInscription;
+    private LocalDate dateEmbauche;
     public void entreNouveauDocument(Document doc) {}
     public void collecteAmende(Emprunteur emprunteur, double montant) {}
     public String rapportAmendes(){
