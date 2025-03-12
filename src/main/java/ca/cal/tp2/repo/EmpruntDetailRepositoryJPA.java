@@ -5,6 +5,7 @@ import ca.cal.tp2.modele.Document;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 
 import java.time.LocalDate;
 
@@ -17,7 +18,6 @@ public class EmpruntDetailRepositoryJPA implements EmpruntDetailRepository {
     public boolean isDocumentEmprunte(Document document) throws DataBaseException {
 
         try (EntityManager entityManager =  entityManagerFactory.createEntityManager()){
-            // Query to check if the document is currently borrowed
             String query = "SELECT COUNT(d) FROM EmpruntDetail d " +
                     "WHERE d.document = :document " +
                     "AND d.dateRetourActuelle IS NULL " +
@@ -27,11 +27,31 @@ public class EmpruntDetailRepositoryJPA implements EmpruntDetailRepository {
                     .setParameter("document", document)
                     .setParameter("currentDate", LocalDate.now())
                     .getSingleResult();
-            // If count > 0, the document is currently borrowed
+
             return count > 0;
         }
         catch (Exception e) {
             throw new DataBaseException(e);
         }
     }
+
+    @Override
+    public String verifierDisponibilite(int documentId) {
+        try (EntityManager entityManager = entityManagerFactory.createEntityManager()) {
+            String query = "SELECT COUNT(ed) FROM EmpruntDetail ed " +
+                    "WHERE ed.document.id = :document " +
+                    "AND (ed.dateRetourPrevue >= :today OR ed.dateRetourActuelle IS NULL)";
+            TypedQuery<Long> typedQuery = entityManager.createQuery(query, Long.class);
+            typedQuery.setParameter("document", documentId);
+            typedQuery.setParameter("today", LocalDate.now());
+            Long count = typedQuery.getSingleResult();
+            return (count == 0) ? "Disponible" : "Indisponible";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Erreur lors de la vérification";
+        }
+    }
+
+
+
 }

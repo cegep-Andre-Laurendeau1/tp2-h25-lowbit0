@@ -8,6 +8,7 @@ import ca.cal.tp2.modele.DVD;
 public record DocumentDTO(
             long id,
             String typeDocument,
+            String emprunte,
             String titre,
             String anneePublication,
             String genre,
@@ -17,13 +18,16 @@ public record DocumentDTO(
             Integer dureEmprunt,
             Integer dureMinutes,
             Integer nbMusique
+
     ) {
 
-        public static DocumentDTO toDTO(Document document) {
+
+        public static DocumentDTO toDTO(Document document, String emprunte) {
             if (document instanceof Livre livre) {
                 return new DocumentDTO(
                         livre.getId(),
                         "Livre",
+                        emprunte,
                         livre.getTitre(),
                         livre.getAnneePublication(),
                         livre.getGenre(),
@@ -32,12 +36,14 @@ public record DocumentDTO(
                         livre.getNbPages(),
                         livre.getDureEmprunt(),
                         null,
+
                         null
                 );
             } else if (document instanceof CD cd) {
                 return new DocumentDTO(
                         cd.getId(),
                         "CD",
+                        emprunte,
                         cd.getTitre(),
                         cd.getAnneePublication(),
                         cd.getGenre(),
@@ -47,12 +53,14 @@ public record DocumentDTO(
                         cd.getDureEmprunt(),
                         cd.getDureeMinutes(),
                         cd.getNbMusiques()
+
                 );
 
             } else if (document instanceof DVD dvd) {
                 return new DocumentDTO(
                         dvd.getId(),
                         "DVD",
+                        emprunte,
                         dvd.getTitre(),
                         dvd.getAnneePublication(),
                         dvd.getGenre(),
@@ -68,6 +76,8 @@ public record DocumentDTO(
             } else {
                 throw new IllegalArgumentException("Type de document non supporté : " + document.getClass().getSimpleName());
             }
+
+
         }
 
 

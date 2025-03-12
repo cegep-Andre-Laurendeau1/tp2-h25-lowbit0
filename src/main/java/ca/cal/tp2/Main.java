@@ -34,7 +34,7 @@ public class Main {
              empruntDetailRepositoryJPA
       );
 
-      PreposeService preposeService = new PreposeService(new UtilisateurRepositoryJPA(), new DocumentRepositoryJPA());
+      PreposeService preposeService = new PreposeService(new UtilisateurRepositoryJPA(), new DocumentRepositoryJPA(), new EmpruntDetailRepositoryJPA());
 
         Adresse adresse = new Adresse("La pierre, 1111, H8N 2J4, lassalle , Qc, Ca");
 
@@ -96,10 +96,7 @@ public class Main {
         preposeService.createDocument(livre1);
         System.out.println("Document created!!!!!!!!!!!!!!!!!!!!!!!!");
         List<DocumentDTO> monLivre = preposeService.getDocumentsByTitle("Le seigneu");
-        System.out.println("Voici les livres avec un titre qui contient 'Le seigneu': ");
-        for (DocumentDTO doc : monLivre) {
-            System.out.println(doc.toString());
-        }
+
 
         CD cd1 = CD.builder()
                 .titre("Thriller")
@@ -134,17 +131,12 @@ public class Main {
 
         System.out.println("Document created!!!!!!!!!!!!!!!!!!!!!!!!   le voici: ");
 
+        //    ------------------------ section recherche Document----------------------
         List<DocumentDTO> monCD = preposeService.getDocumentsByTitle("Thrill");
-        for (DocumentDTO doc : monCD) {
-            System.out.println(doc.toString());
-        }
-
-
 
         List<DocumentDTO>monCD2 = preposeService.getDocumentByAuteur("Michael");
-        for (DocumentDTO doc : monCD2){
-            System.out.println(doc.toString());
-        }
+
+        //    ------------------------ section Emprunt ----------------------
 
         List<Document> mesDocumentsaEmprunter = new ArrayList<>();
         mesDocumentsaEmprunter.add(cd2);
@@ -156,8 +148,37 @@ public class Main {
 
 
         List<DocumentEmprunteDTO> documentEmprunte = emprunteurService.getDocumentEmprunte(emprunteur);
-        System.out.println("Voici les documents empruntés par: " + emprunteur.getNom());
+
+
+        //    ------------------------ section recherche doc apre emprunt ----------------------
+
+        List<DocumentDTO>maRecherCD3 = preposeService.getDocumentByAuteur("Michael");
+
+        // ------------------------ section resultat ----------------------
+
+        System.out.println("\n ---------------  Voici les livres avec un titre qui contient 'Le seigneu': ");
+        for (DocumentDTO doc : monLivre) {
+            System.out.println(doc.toString());
+        }
+
+
+        System.out.println("\n --------------- Voici les documents avec un titre qui contient 'Thrill': ");
+        for (DocumentDTO doc : monCD) {
+            System.out.println(doc.toString());
+        }
+
+
+        System.out.println("\n --------------- Voici les documents avec un Auteur qui contient 'Michael': ");
+        for (DocumentDTO doc : monCD2){
+            System.out.println(doc.toString());
+        }
+        System.out.println("\n --------------- Voici les documents empruntés par: " + emprunteur.getNom());
         for (DocumentEmprunteDTO doc : documentEmprunte) {
+            System.out.println(doc.toString());
+        }
+
+        System.out.println("\n --------------- Voici les documents(cd) rechercher apres emprunt qui contient 'Michael': ");
+        for (DocumentDTO doc : maRecherCD3) {
             System.out.println(doc.toString());
         }
 
