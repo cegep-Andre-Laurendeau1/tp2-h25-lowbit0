@@ -8,6 +8,7 @@ import ca.cal.tp2.modele.Emprunt;
 import ca.cal.tp2.modele.EmpruntDetail;
 import ca.cal.tp2.modele.Utilisateur;
 import ca.cal.tp2.service.dto.DocumentDTO;
+import ca.cal.tp2.service.dto.DocumentEmprunteDTO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -53,23 +54,19 @@ public class EmpruntRepositoryJPA implements EmpruntRepository{
     }
 
     @Override
-    public List<DocumentDTO> getDocumentEmprunte(Utilisateur utilisateur) throws DataBaseException {
+    public List<DocumentEmprunteDTO> getDocumentEmprunte(Utilisateur utilisateur) throws DataBaseException {
         try( EntityManager entityManager = entityManagerFactory.createEntityManager()) {
-            String query = "SELECT d FROM Document d " +
+            String query = "SELECT d.titre, e.dateEmprunt, ed.dateRetourPrevue FROM Document d " +
                     "JOIN EmpruntDetail ed ON d.id = ed.document.id " +
                     "JOIN Emprunt e ON ed.emprunt.id = e.id " +
                     "WHERE e.emprunteur.email = :email " +
                     "AND ed.dateRetourActuelle IS NULL";
 
-            TypedQuery<Document> typedQuery = entityManager.createQuery(query, Document.class);
+            TypedQuery<DocumentEmprunteDTO> typedQuery = entityManager.createQuery(query, DocumentEmprunteDTO.class);
             typedQuery.setParameter("email", utilisateur.getEmail());
 
-            List<Document> documentResult = typedQuery.getResultList();
-            List<DocumentDTO> documentDTOList = new ArrayList<>();
-            for (Document document : documentResult) {
-                documentDTOList.add(DocumentDTO.toDTO(document));
-            }
-            return documentDTOList;
+
+            return typedQuery.getResultList();
         }
         catch (Exception e) {
             throw new DataBaseException(e);

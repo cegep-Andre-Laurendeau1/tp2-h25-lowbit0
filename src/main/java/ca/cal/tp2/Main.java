@@ -10,6 +10,7 @@ import ca.cal.tp2.repo.UtilisateurRepositoryJPA;
 import ca.cal.tp2.service.EmprunteurService;
 import ca.cal.tp2.service.PreposeService;
 import ca.cal.tp2.service.dto.DocumentDTO;
+import ca.cal.tp2.service.dto.DocumentEmprunteDTO;
 import ca.cal.tp2.service.dto.EmprunteurDTO;
 import ca.cal.tp2.service.dto.PreposeDTO;
 
@@ -154,9 +155,9 @@ public class Main {
         emprunteurService.createEmprunt(mesDocumentsaEmprunter,emprunteur);
 
 
-        List<DocumentDTO> documentEmprunte = emprunteurService.getDocumentEmprunte(emprunteur);
+        List<DocumentEmprunteDTO> documentEmprunte = emprunteurService.getDocumentEmprunte(emprunteur);
         System.out.println("Voici les documents empruntés par: " + emprunteur.getNom());
-        for (DocumentDTO doc : documentEmprunte) {
+        for (DocumentEmprunteDTO doc : documentEmprunte) {
             System.out.println(doc.toString());
         }
 

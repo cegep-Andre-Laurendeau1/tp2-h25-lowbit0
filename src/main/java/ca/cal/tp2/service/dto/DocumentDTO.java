@@ -69,5 +69,13 @@ public record DocumentDTO(
                 throw new IllegalArgumentException("Type de document non supporté : " + document.getClass().getSimpleName());
             }
         }
+
+
+
+
 }
+
+
+
+
 

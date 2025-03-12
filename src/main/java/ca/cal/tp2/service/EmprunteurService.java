@@ -7,6 +7,7 @@ import ca.cal.tp2.repo.EmpruntDetailRepository;
 import ca.cal.tp2.repo.EmpruntRepository;
 import ca.cal.tp2.repo.UtilisateurRepository;
 import ca.cal.tp2.service.dto.DocumentDTO;
+import ca.cal.tp2.service.dto.DocumentEmprunteDTO;
 import ca.cal.tp2.service.dto.EmprunteurDTO;
 
 import java.time.LocalDate;
@@ -90,7 +91,7 @@ public class EmprunteurService {
         return !repositoryEmpruntDetail.isDocumentEmprunte(document);
     }
 
-    public List<DocumentDTO> getDocumentEmprunte(Emprunteur emprunteur) throws DataBaseException {
+    public List<DocumentEmprunteDTO> getDocumentEmprunte(Emprunteur emprunteur) throws DataBaseException {
         return repositoryEmprunt.getDocumentEmprunte(emprunteur);
     }
 }
