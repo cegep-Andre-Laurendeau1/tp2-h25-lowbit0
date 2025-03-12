@@ -27,7 +27,6 @@ public class EmpruntDetailRepositoryJPA implements EmpruntDetailRepository {
                     .setParameter("document", document)
                     .setParameter("currentDate", LocalDate.now())
                     .getSingleResult();
-
             // If count > 0, the document is currently borrowed
             return count > 0;
         }

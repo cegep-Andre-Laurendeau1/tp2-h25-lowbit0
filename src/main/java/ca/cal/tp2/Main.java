@@ -22,11 +22,17 @@ public class Main {
     public static void main(String[] args) throws SQLException, InterruptedException, DataBaseException {
         TcpServer.startTcpServer();
 
+        UtilisateurRepositoryJPA utilisateurRepositoryJPA = new UtilisateurRepositoryJPA();
+        EmpruntDetailRepositoryJPA empruntDetailRepositoryJPA = new EmpruntDetailRepositoryJPA();
+        EmpruntRepositoryJPA empruntRepositoryJPA = new EmpruntRepositoryJPA(empruntDetailRepositoryJPA);
+
       //EmprunteurService emprunteurService = new EmprunteurService(new UtilisateurRepositoryJDBC());
       EmprunteurService emprunteurService = new EmprunteurService(
-              new UtilisateurRepositoryJPA(),
-              new EmpruntRepositoryJPA(),
-              new EmpruntDetailRepositoryJPA());
+             utilisateurRepositoryJPA,
+             empruntRepositoryJPA,
+             empruntDetailRepositoryJPA
+      );
+
       PreposeService preposeService = new PreposeService(new UtilisateurRepositoryJPA(), new DocumentRepositoryJPA());
 
         Adresse adresse = new Adresse("La pierre, 1111, H8N 2J4, lassalle , Qc, Ca");
@@ -143,7 +149,16 @@ public class Main {
         mesDocumentsaEmprunter.add(cd2);
         mesDocumentsaEmprunter.add(livre1);
 
+        //    ------------------------ section Emprunt ----------------------
+
         emprunteurService.createEmprunt(mesDocumentsaEmprunter,emprunteur);
+
+
+        List<DocumentDTO> documentEmprunte = emprunteurService.getDocumentEmprunte(emprunteur);
+        System.out.println("Voici les documents empruntés par: " + emprunteur.getNom());
+        for (DocumentDTO doc : documentEmprunte) {
+            System.out.println(doc.toString());
+        }
 
         Thread.currentThread().join();
     }

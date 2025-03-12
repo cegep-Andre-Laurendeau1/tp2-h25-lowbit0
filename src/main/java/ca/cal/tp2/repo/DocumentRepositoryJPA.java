@@ -26,7 +26,6 @@ public class DocumentRepositoryJPA implements DocumentRepository {
 
     @Override
     public List<Document> getDocumentByTitle(String titre) throws DataBaseException {
-
         try( EntityManager entityManager = entityManagerFactory.createEntityManager()) {
             TypedQuery<Document> query = entityManager.createQuery(
                     "SELECT d FROM Document d WHERE LOWER(d.titre) LIKE :titre", Document.class);
@@ -62,4 +61,6 @@ public class DocumentRepositoryJPA implements DocumentRepository {
     public List<Document> getDocumentByType(String type) {
         return List.of();
     }
+
+
 }

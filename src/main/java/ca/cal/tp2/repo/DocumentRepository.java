@@ -15,8 +15,8 @@ public interface DocumentRepository {
 
     public List<Document> getDocumentByArtist(String artist);
 
-    List<Document> getDocumentByType(String type);
+    public List<Document> getDocumentByType(String type);
 
-    ;
+
 
 }

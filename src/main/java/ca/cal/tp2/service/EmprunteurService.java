@@ -1,10 +1,12 @@
 package ca.cal.tp2.service;
 
 import ca.cal.tp2.exception.DataBaseException;
+import ca.cal.tp2.exception.DocumentPasDisponibleException;
 import ca.cal.tp2.modele.*;
 import ca.cal.tp2.repo.EmpruntDetailRepository;
 import ca.cal.tp2.repo.EmpruntRepository;
 import ca.cal.tp2.repo.UtilisateurRepository;
+import ca.cal.tp2.service.dto.DocumentDTO;
 import ca.cal.tp2.service.dto.EmprunteurDTO;
 
 import java.time.LocalDate;
@@ -55,6 +57,11 @@ public class EmprunteurService {
 
         List<EmpruntDetail> empruntDetails = new ArrayList<>();
         for (Document document : documents) {
+
+            if (!verifieDisponibilite(document)) {
+                throw new DocumentPasDisponibleException("Le document " + document.getTitre() + " est déjà emprunté");
+            }
+
             EmpruntDetail empruntDetail = new EmpruntDetail();
             empruntDetail.setDateRetourPrevue(dateRetourPrevu(document, emprunt.getDateEmprunt()));
             empruntDetail.setDocument(document);
@@ -79,6 +86,12 @@ public class EmprunteurService {
         return dateEmprunt.plusDays(dureeEmprunt);
     }
 
+    public boolean verifieDisponibilite(Document document) throws DataBaseException {
+        return !repositoryEmpruntDetail.isDocumentEmprunte(document);
+    }
 
+    public List<DocumentDTO> getDocumentEmprunte(Emprunteur emprunteur) throws DataBaseException {
+        return repositoryEmprunt.getDocumentEmprunte(emprunteur);
+    }
 }
 
