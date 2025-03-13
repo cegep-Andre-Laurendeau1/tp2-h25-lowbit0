@@ -26,15 +26,8 @@ public class Emprunt {
     @ManyToOne
     private Emprunteur emprunteur;
 
-    public Emprunt(LocalDate dateEmprunt, String status, List<EmpruntDetail> empruntDetail, Emprunteur emprunteur) {
-        this.dateEmprunt = dateEmprunt;
-        this.status = status;
-        this.empruntDetail = empruntDetail;
-        this.emprunteur = emprunteur;
-    }
 
-    public  Emprunt getEmprunt(){
-        return null;
-    };
+
+
 
 }

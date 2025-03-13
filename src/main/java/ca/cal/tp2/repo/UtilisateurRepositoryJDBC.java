@@ -1,5 +1,6 @@
     package ca.cal.tp2.repo;
 
+    import ca.cal.tp2.exception.DataBaseException;
     import ca.cal.tp2.modele.Adresse;
     import ca.cal.tp2.modele.Emprunteur;
     import ca.cal.tp2.modele.Utilisateur;
@@ -50,7 +51,7 @@
                     .adresse(adresse)
                     .password(resultSet.getString("password"))
                     .dateInscription(dateInscription)
-                    .DureeInscription(resultSet.getInt("DureeInscription"))
+                    .dureeInscription(resultSet.getInt("DureeInscription"))
                     .build();
         }
 
@@ -67,5 +68,10 @@
         @Override
         public Utilisateur getUtilisateurById(int id) {
             return executePreparedStatmentSelect(id);
+        }
+
+        @Override
+        public Utilisateur getUtilisateurByMail(String email) throws DataBaseException {
+            return null;
         }
     }
