@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 public class PreposeService {
 
-
+//   Revoir les trucs trucs mes
     private final UtilisateurRepository repositoryUtilisateur;
     private final DocumentRepository repositoryDocument;
     private final EmpruntDetailRepository repositoryEmpruntDetail;
@@ -63,20 +63,16 @@ public class PreposeService {
 
         return documents.stream()
                 .map(document -> {
+                    String isEmprunte;
                             try {
+                                isEmprunte = repositoryEmpruntDetail.verifierDisponibilite(document.getId());
 
-                                String isEmprunte = repositoryEmpruntDetail.verifierDisponibilite(document.getId());
-                                DocumentDTO docDTO = DocumentDTO.toDTO(document,isEmprunte);
-
-                                return docDTO;
                             } catch (DataBaseException e) {
-                                System.err.println("Erreur lors de la récupération de la disponibilité du document avec ID: " + document.getId());
-
-                                DocumentDTO docDTO = DocumentDTO.toDTO(document,"indisponible");
-                                return docDTO;
+                                throw new RuntimeException("Erreur lors de la récupération de la disponibilité du document avec ID: " + document.getId());
                             }
+                            return DocumentDTO.toDTO(document, isEmprunte);
                 })
-                .collect(Collectors.toList());
+                .toList();
     }
 
 
@@ -90,16 +86,14 @@ public class PreposeService {
 
                         String isEmprunte = repositoryEmpruntDetail.verifierDisponibilite(document.getId());
                         DocumentDTO docDTO = DocumentDTO.toDTO(document,isEmprunte);
-
                         return docDTO;
                     } catch (DataBaseException e) {
                         System.err.println("Erreur lors de la récupération de la disponibilité du document avec auteur: " + document.getAuteur());
-
                         DocumentDTO docDTO = DocumentDTO.toDTO(document,"indisponible");
                         return docDTO;
                     }
                 })
-                .collect(Collectors.toList());
+                .toList();
     }
 
 

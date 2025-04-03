@@ -3,10 +3,7 @@ package ca.cal.tp2;
 
 import ca.cal.tp2.exception.DataBaseException;
 import ca.cal.tp2.modele.*;
-import ca.cal.tp2.repo.DocumentRepositoryJPA;
-import ca.cal.tp2.repo.EmpruntDetailRepositoryJPA;
-import ca.cal.tp2.repo.EmpruntRepositoryJPA;
-import ca.cal.tp2.repo.UtilisateurRepositoryJPA;
+import ca.cal.tp2.repo.*;
 import ca.cal.tp2.service.EmprunteurService;
 import ca.cal.tp2.service.PreposeService;
 import ca.cal.tp2.service.dto.DocumentDTO;
@@ -19,22 +16,27 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+// a revoir tous les execptions
+// Interface!!!  check mes interfaces
+
 public class Main {
     public static void main(String[] args) throws SQLException, InterruptedException, DataBaseException {
         TcpServer.startTcpServer();
 
-        UtilisateurRepositoryJPA utilisateurRepositoryJPA = new UtilisateurRepositoryJPA();
-        EmpruntDetailRepositoryJPA empruntDetailRepositoryJPA = new EmpruntDetailRepositoryJPA();
-        EmpruntRepositoryJPA empruntRepositoryJPA = new EmpruntRepositoryJPA(empruntDetailRepositoryJPA);
+
+        UtilisateurRepository utilisateurRepository = new UtilisateurRepositoryJPA();
+        EmpruntDetailRepository empruntDetailRepository = new EmpruntDetailRepositoryJPA();
+        EmpruntRepository empruntRepository = new EmpruntRepositoryJPA(empruntDetailRepository);
+        DocumentRepository documentRepository = new DocumentRepositoryJPA();
 
       //EmprunteurService emprunteurService = new EmprunteurService(new UtilisateurRepositoryJDBC());
       EmprunteurService emprunteurService = new EmprunteurService(
-             utilisateurRepositoryJPA,
-             empruntRepositoryJPA,
-             empruntDetailRepositoryJPA
+             utilisateurRepository,
+             empruntRepository,
+             empruntDetailRepository
       );
 
-      PreposeService preposeService = new PreposeService(new UtilisateurRepositoryJPA(), new DocumentRepositoryJPA(), new EmpruntDetailRepositoryJPA());
+      PreposeService preposeService = new PreposeService(utilisateurRepository, documentRepository, empruntDetailRepository);
 
         Adresse adresse = new Adresse("La pierre, 1111, H8N 2J4, lassalle , Qc, Ca");
 

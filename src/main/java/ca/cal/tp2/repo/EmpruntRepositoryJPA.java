@@ -21,9 +21,9 @@ public class EmpruntRepositoryJPA implements EmpruntRepository{
     private final EntityManagerFactory entityManagerFactory =
             Persistence.createEntityManagerFactory("tp2-pu");
 
-    private final EmpruntDetailRepositoryJPA empruntDetailRepository;
+    private final EmpruntDetailRepository empruntDetailRepository;
 
-    public EmpruntRepositoryJPA(EmpruntDetailRepositoryJPA empruntDetailRepository) {
+    public EmpruntRepositoryJPA(EmpruntDetailRepository empruntDetailRepository) {
         this.empruntDetailRepository = empruntDetailRepository;
     }
 

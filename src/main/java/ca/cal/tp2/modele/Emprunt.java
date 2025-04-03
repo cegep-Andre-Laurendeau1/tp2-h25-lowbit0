@@ -18,7 +18,7 @@ public class Emprunt {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private LocalDate dateEmprunt;
-    private String status;
+
 
     @OneToMany(mappedBy = "emprunt", cascade = CascadeType.PERSIST)
     private List<EmpruntDetail> empruntDetail;

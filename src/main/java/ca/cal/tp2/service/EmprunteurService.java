@@ -53,7 +53,7 @@ public class EmprunteurService {
     public void createEmprunt(  List<Document> documents, Emprunteur emprunteur) throws DataBaseException {
         Emprunt emprunt = new Emprunt();
         emprunt.setDateEmprunt(LocalDate.now());
-        emprunt.setStatus("Actif");
+
         emprunt.setEmprunteur(emprunteur);
 
         List<EmpruntDetail> empruntDetails = new ArrayList<>();
@@ -68,7 +68,7 @@ public class EmprunteurService {
             empruntDetail.setDocument(document);
             empruntDetail.setEmprunt(emprunt);
             empruntDetails.add(empruntDetail);
-            empruntDetail.setStatus("Empunte");
+
 
             EmpruntDetailId empruntDetailId = new EmpruntDetailId();
             empruntDetailId.setEmpruntId(emprunt.getId());

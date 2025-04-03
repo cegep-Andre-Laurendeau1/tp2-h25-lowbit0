@@ -18,7 +18,7 @@ public class EmpruntDetail {
     private EmpruntDetailId id;
     private LocalDate dateRetourPrevue;
     private LocalDate dateRetourActuelle;
-    private String status;
+
 
 
     @ManyToOne(cascade = CascadeType.PERSIST)

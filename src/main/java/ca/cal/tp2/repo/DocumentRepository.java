@@ -6,6 +6,8 @@ import ca.cal.tp2.modele.Utilisateur;
 
 import java.util.List;
 
+// a revoir tous les execptions
+
 public interface DocumentRepository {
     public void save(Document document);
 
